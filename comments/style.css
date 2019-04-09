@@ -1,0 +1,43 @@
+body{
+    background: #bdc3c7;
+    font-family: 'Roboto', sans-serif;
+}
+
+.container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.alert
+{
+    padding: 1px;
+    border: 1px solid;
+}
+
+.alert.error 
+{
+    color: red;
+}
+
+.alert.success
+{
+    color: green;
+}
+
+.comments
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.comments__title
+{
+    margin-top: 1rem;
+}
+
+.comments__content
+{
+    margin-top: 1rem;
+    color: red;
+}
