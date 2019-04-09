@@ -1,6 +1,4 @@
 <?php
-// Includes
-include 'database.php';
 
 $title = 'My Website';
 
@@ -48,5 +46,5 @@ if(!empty($_POST))
     }
 
     // Query the data
-    $query = $pdo->query('SELECT user,message, DATE_FORMAT(date,\'Le %d-%m à %hh%i\') AS date FROM comments');
+    $query = $pdo->query('SELECT user,message, DATE_FORMAT(date,\'Le %d/%m à %hh%i\') AS date FROM comments');
     $returnedData = $query->fetchAll();

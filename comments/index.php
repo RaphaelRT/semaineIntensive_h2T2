@@ -1,3 +1,12 @@
+<?php
+include 'database.php';
+include 'rate.php'; 
+
+$query = $pdo->query('SELECT ROUND(AVG(rate),1) AS rate FROM `rating`');
+$rating = $query->fetchAll();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,18 +42,35 @@
     <h1>Add a comment :</h1>
         <form action="#" method="post">
             <div>
-                <textarea required name="input1" cols="25" rows="1" placeholder="Name"></textarea>
+                <input type="text" required name="input1" placeholder="Name"/>
             </div>
             <div>
-            <textarea required name="input2" cols="40" rows="5" placeholder="Comment"></textarea>
+                <textarea required name="input2" cols="40" rows="5" placeholder="Comment"></textarea>
             </div>
-            <div>
-                <input type="submit">
+            <input type="submit">
+        </form>
+
+        <form action="#" method="post">
+            <div class="field">
+                Rate
+                <?php foreach($rate as $_rate): ?>
+                    <br>
+                    <label>
+                        <input
+                            type="radio"
+                            required name="input3"
+                            value="<?= $_rate ?>"
+                        >
+                        <?= $_rate ?>
+                    </label>
+                <?php endforeach; ?>
             </div>
+            <input type="submit">
         </form>
 </div>
 
 <!-- Result -->
+    <?= $rating[0]->rate ?>
     <h2>Comments</h2>
         <?php foreach($returnedData as $_returnedData): ?>
         <div class="comments">
