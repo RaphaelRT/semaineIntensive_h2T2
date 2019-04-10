@@ -3,6 +3,9 @@ const littleInfo = document.querySelector('.littleInfo')
 const close =document.querySelector('.close')
 const distance =document.querySelector('.distance')
 const moreInfo = document.querySelector('.moreInfo')
+const hiddenInput= document.querySelector('.hiddenInput')
+const comments = document.querySelector('.comments')
+const infoContainerComplete = document.querySelector('.infoContainerComplete')
 
 
 const adress = document.querySelectorAll('.adress')
@@ -39,6 +42,18 @@ let coord
 close.addEventListener('click',()=>{
     littleInfo.style.transform='translateY(100%)'
 })
+    
+function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+    var R = 6378.137; // Radius of earth in KM
+    var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
+    var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var d = R * c;
+    return d * 1000; // meters
+}
 
 function getCoords() {
     return new Promise((resolve, reject) => {
@@ -81,33 +96,78 @@ getCoords().then(coords => {
     
     
     behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-
-    moreInfo.addEventListener('click', () => {
-    fetch('toilet-infos.php?id=' + currentToilet.id)
-})
+    map.addEventListener('tap',()=>{
+        infoContainerComplete.style.transform='translateX(100%)'
+    })
+  
     
-let currentToilet = null
-const oReq = new XMLHttpRequest(); //New request object
+    moreInfo.addEventListener('click', () => {
+        // hiddenInput.style.display="none"
+        hiddenInput.value=`${currentToilet.id}`
+        infoContainerComplete.style.transform='translateX(0)'
+        littleInfo.style.transform='translateY(100%)'
+       
+        // alert('toilet-infos.php?id=' + currentToilet.id)
+        fetch('comments.php?id=' + currentToilet.id)
+            .then(result => result.json())
+            .then(data => {
+                if (comments.children[0] === undefined) {
+                    for (let x = 0; x < data.length; x++) {
+                        
+                        let comment = document.createElement('div')
+                        comment.classList.add('comment')
+                        let name = document.createElement('h3')
+                        name.innerHTML=`${data[x].user}`
+                        let pComment = document.createElement('p')
+                        pComment.innerHTML=`${data[x].message}`
+                        let date = document.createElement('h4')
+                        date.innerHTML=` ${data[x].date}`
+                        comments.appendChild(comment) 
+                        comment.appendChild(name) 
+                        comment.appendChild(date)
+                        comment.appendChild(pComment) 
+                        
+                    }
+                }
+                else{
+                    let commentDom = document.querySelectorAll('.comment')
+                    for (let c = 0; c < commentDom.length; c++) {
+                        comments.removeChild(commentDom[c])
+                    }
+                    for (let x = 0; x < data.length; x++) {
+                        
+                        let comment = document.createElement('div')
+                        comment.classList.add('comment')
+                        let name = document.createElement('h3')
+                        name.innerHTML=`${data[x].user}`
+                        let pComment = document.createElement('p')
+                        pComment.innerHTML=`${data[x].message}`
+                        let date = document.createElement('h4')
+                        date.innerHTML=` ${data[x].date}`
+                        comments.appendChild(comment) 
+                        comment.appendChild(name) 
+                        comment.appendChild(date)
+                        comment.appendChild(pComment) 
+                        
+                    }
+                }
+                
+               
+            })
+          
+            
+    })
+    
+    let currentToilet = null
+    const oReq = new XMLHttpRequest(); //New request object
 
-oReq.onload = function() {
+    oReq.onload = function() {
     //This is where you handle what to do with the response.
     //The actual data is found on this.responseText
    
     
     let toilets = JSON.parse(this.responseText)
 
-    
-    function measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
-        var R = 6378.137; // Radius of earth in KM
-        var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
-        var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
-        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        var d = R * c;
-        return d * 1000; // meters
-    }
     // let group = new H.map.Group();
     for (let i = 0; i < Math.floor(toilets.length); i++) {
         let svg
@@ -163,7 +223,7 @@ oReq.onload = function() {
         
         
         marker.addEventListener('tap',(event)=>{
-            console.log(toilet.id)
+            
             currentToilet = toilet
             littleInfo.style.transform='translateY(-10%)'
             for (let m = 0; m < adress.length; m++) {
@@ -177,8 +237,7 @@ oReq.onload = function() {
             distance.innerHTML=`Situé à ${Math.round(distanceMeter*100)/100}m`
 
 
-            
-            console.log(event.target);
+          
              
             
         });

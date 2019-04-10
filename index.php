@@ -1,3 +1,9 @@
+<?php 
+  include 'database.php';
+  include 'new-comments.php'
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,14 +46,43 @@
           </div>
       </div>
       <div class="moreInfoContainer">
-        <button class="moreInfo">Plus d'informations</button>
+        <a class="moreInfo" >
+          <button class="moreInfo">Plus d'informations</button>
+        </a>
       </div>     
     </div>
     </div>
+    <div class="addComment">
+        
+          <h1>Add a comment :</h1>
+          <form action="#" method="post">
+              <div>
+                  <input type="text" required name="input1" placeholder="Name"/>
+              </div>
+              <div>
+                  <textarea required name="input2" cols="40" rows="5" placeholder="Comment"></textarea>
+              </div>
+              <div class="hidden">
+                  <input class="hiddenInput" type="text" required name="input3"/>
+              </div>
+              <input type="submit">
+          </form>
+      </div>
     <div class="infoContainerComplete">
       <div class="mapFocused"></div>
       <p class="adress"></p>
       <p class="open"></p>
+        <div class="rating"><!--
+        -->      <input name="stars" id="e5" type="radio"></a><label for="e5">☆</label><!--
+              --><input name="stars" id="e4" type="radio"></a><label for="e4">☆</label><!--
+              --><input name="stars" id="e3" type="radio"></a><label for="e3">☆</label><!--
+              --><input name="stars" id="e2" type="radio"></a><label for="e2">☆</label><!--
+              --><input name="stars" id="e1" type="radio"></a><label for="e1">☆</label>
+          </div>
+      <h2>Comments</h2>
+      <div class="comments">
+
+      </div>
      
     </div>
     
