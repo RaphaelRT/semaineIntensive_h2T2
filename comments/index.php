@@ -1,11 +1,22 @@
 <?php
 include 'database.php';
-include 'rate.php'; 
+include 'rate.php';
+include 'infos.php'; 
 
 $query = $pdo->query('SELECT ROUND(AVG(rate),1) AS rate FROM `rating`');
 $rating = $query->fetchAll();
 
-?>
+foreach($alerts['error'] as $_alerts): ?>
+        <div class="alert error">
+            <?= $_alerts ?>
+        </div>
+    <?php endforeach; ?>
+
+    <?php foreach($alerts['success'] as $_alerts): ?>
+        <div class="alert success">
+            <?= $_alerts ?>
+        </div>
+    <?php endforeach; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,22 +29,6 @@ $rating = $query->fetchAll();
     <title>Comments</title>
 </head>
 <body>
-
-<!-- All includes and php -->
-
-<?php include 'infos.php'; 
-
-    foreach($alerts['error'] as $_alerts): ?>
-        <div class="alert error">
-            <?= $_alerts ?>
-        </div>
-    <?php endforeach; ?>
-
-    <?php foreach($alerts['success'] as $_alerts): ?>
-        <div class="alert success">
-            <?= $_alerts ?>
-        </div>
-    <?php endforeach; ?>
 
 <!-- Html -->
 

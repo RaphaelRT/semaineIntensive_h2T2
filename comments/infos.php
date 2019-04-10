@@ -16,7 +16,9 @@ if(!empty($_POST))
             'user' => htmlspecialchars($_POST['input1']),
             'message' => htmlspecialchars($_POST['input2']),
         ];
-
+        $text = $data['message'];
+        $checkurl = "http://api1.webpurify.com/services/rest/?method=webpurify.live.replace&api_key=ca5a643c6ef65b1e3d833b798d2f9130&text=$text&replacesymbol=*&format=json".urlencode('test test test');
+        $data['message'] = simplexml_load_file($checkurl,'SimpleXMLElement', LIBXML_NOCDATA);
         // Setup of conditions in case of errors
         if(empty('user'))
         {
@@ -39,8 +41,9 @@ if(!empty($_POST))
             VALUES
                 (:user, :message)
         ');
-
-        $prepare->execute($data);
+        $prepare->bindValue('user', $data['user']);
+        $prepare->bindValue('message', $data['message']->text);
+        $prepare->execute();
 
         $alerts['success'][] = 'User registered';
     }
