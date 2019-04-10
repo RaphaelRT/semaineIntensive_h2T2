@@ -61,7 +61,7 @@ $rating = $query->fetchAll();
                             required name="input3"
                             value="<?= $_rate ?>"
                         >
-                        <?= $_rate ?>
+                        <img class="rating_img" src="star_after.svg">
                     </label>
                 <?php endforeach; ?>
             </div>
