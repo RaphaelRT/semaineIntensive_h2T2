@@ -24,12 +24,16 @@
     $query->execute();
 
     $returnedData = $query->fetchAll();
+    $sum= [];
 
     for ($i=0; $i < sizeof($returnedData) ; $i++) { 
         
         $sum[] = $returnedData[$i]->rate;
     }
-    $sumResult =array_sum($sum)/sizeof($sum);
+    
+        $sumResult =array_sum($sum)/sizeof($sum);
+        var_dump(json_encode($sumResult));
+    
   
 
     die(json_encode($sumResult));
