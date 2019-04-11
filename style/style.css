@@ -1,21 +1,24 @@
-html{
+html {
     overflow: hidden;
-}
-.marker{
-    width:25px;
-
-}
-.infoContainer{
+  }
+  
+  .marker {
+    width: 25px;
+  
+  }
+  
+  .infoContainer {
     width: 100vw;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     overflow: hidden;
-}
-.littleInfo{
+  }
+  
+  .littleInfo {
     width: 90vw;
-    height:40vh;
+    height: 40vh;
     margin: auto;
     position: absolute;
     background: #383b50;
@@ -23,37 +26,42 @@ html{
     /* transform: translateY(-5vh); */
     transform: translateY(100%);
     transition: transform 1s ease;
-    
-    
-}
-.content{
+  
+  
+  }
+  
+  .content {
     display: flex;
     flex-direction: row;
     justify-content: center;
     height: 50%;
     margin-top: 5%;
-
-}
-.left{
+  
+  }
+  
+  .left {
     display: flex;
     flex-direction: column;
     color: #ffffff;
-}
-.right{
+  }
+  
+  .right {
     display: flex;
     flex-direction: column;
     color: #ffffff;
-}
-.moreInfoContainer{
+  }
+  
+  .moreInfoContainer {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-.left span{
+  }
+  
+  .left span {
     margin-right: 20vw;
-}
-
-.moreInfo{
+  }
+  
+  .moreInfo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,9 +69,10 @@ html{
     height: 7vh;
     background: #FFC900;
     border-radius: 50px;
-
-}
-.close {
+  
+  }
+  
+  .close {
     position: absolute;
     top: 20%;
     left: 92%;
@@ -72,9 +81,9 @@ html{
     width: 8%;
     cursor: pointer;
     z-index: 1000;
-}
-
-span {
+  }
+  
+  span {
     display: block;
     width: 40%;
     height: 0.5vh;
@@ -85,17 +94,18 @@ span {
     background: #ffffff;
     transition: 0.5s;
     box-shadow: 0 2px 2px rgba(0, 0, 0, .20);
-}
-   
-span:nth-child(1){
-    transform:rotate(45deg);
-}
-    
-span:nth-child(2){
-    transform:rotate(-45deg);
-}
-.infoContainerComplete{
-    height:100vh;
+  }
+  
+  span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  
+  span:nth-child(2) {
+    transform: rotate(-45deg);
+  }
+  
+  .infoContainerComplete {
+    height: 100vh;
     width: 40vw;
     background: #383b50;
     position: absolute;
@@ -109,64 +119,70 @@ span:nth-child(2){
     overflow: auto;
     transform: translateX(100%);
     transition: transform 1s ease;
-
-}
-.comments{
+  
+  }
+  
+  .comments {
     width: 70%;
-}
-.comment{
+  }
+  
+  .comment {
     margin-top: 10%;
     width: 100%;
     border: #ffffff 1px solid;
     padding: 5%;
-    border-radius:5%;
-}
-
-.hiddenInput{
+    border-radius: 5%;
+  }
+  
+  .hiddenInput {
     display: none;
-}
-
-/*  
-		 * Rating styles
-		 */
-         .rating {
-			width: 226px;
-			margin: 0 auto 1em;
-            font-size: 45px;
-            display: flex;
-            justify-content: center;
-            transform: rotateY(180deg);
-            margin:0 auto;
-		}
-.rating input {
-  float: right;
-  opacity: 0;
-  position: absolute;
-}
-		.rating a,
-    .rating label {
-			float:right;
-			color: #aaa;
-			text-decoration: none;
-			-webkit-transition: color .4s;
-			-moz-transition: color .4s;
-			-o-transition: color .4s;
-			transition: color .4s;
-		}
-.rating label:hover ~ label,
-.rating input:focus ~ label,
-.rating label:hover,
-		.rating a:hover,
-		.rating a:hover ~ a,
-		.rating a:focus,
-		.rating a:focus ~ a		{
-			color: orange;
-			cursor: pointer;
-		}
-		.rating2 {
-			direction: rtl;
-		}
-		.rating2 a {
-			float:none
-		}
-    
+  }
+  
+  /*  
+           * Rating styles
+           */
+  .rating {
+    width: 226px;
+    margin: 0 auto 1em;
+    font-size: 45px;
+    display: flex;
+    justify-content: center;
+    transform: rotateY(180deg);
+    margin: 0 auto;
+  }
+  
+  .rating input {
+    float: right;
+    opacity: 0;
+    position: absolute;
+  }
+  
+  .rating a,
+  .rating label {
+    float: right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+  }
+  
+  .rating label:hover~label,
+  .rating input:focus~label,
+  .rating label:hover,
+  .rating a:hover,
+  .rating a:hover~a,
+  .rating a:focus,
+  .rating a:focus~a {
+    color: orange;
+    cursor: pointer;
+  }
+  
+  .rating2 {
+    direction: rtl;
+  }
+  
+  .rating2 a {
+    float: none
+  }
