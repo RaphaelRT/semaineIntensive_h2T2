@@ -1,10 +1,28 @@
 html {
     overflow: hidden;
   }
+  .loading{
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    align-items: center;
+  }
+  .loading img{
+    width:5%;
+    height: 10%;
+  }
   
   .marker {
     width: 25px;
   
+  }
+  .marker path:hover{
+    fill: #FFC900;
   }
   
   .infoContainer {
@@ -185,4 +203,52 @@ html {
   
   .rating2 a {
     float: none
+  }
+  .addComment{
+    position: absolute;
+    background: #383b50;
+    width: 50%;
+    height: 50%;
+    top: 25%;
+    left:25%;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(200%);
+    transition: transform 1s ease;
+
+
+
+  }
+  .closeComment{
+    position: absolute;
+    top: 20%;
+    left: 92%;
+    transform: translate(-50%, -50%);
+    height: 8%;
+    width: 8%;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  .addCommentButton{
+    background: #FFC900;
+    color: #000000;
+  }
+  .go{
+    width: 50%;
+    color: #000000;
+    background: #FFC900;
+    padding: 5%;
+  }
+  .closeInfoContainer{
+    position: absolute;
+    top: 20%;
+    left: 92%;
+    transform: translate(-50%, -50%);
+    height: 8%;
+    width: 8%;
+    cursor: pointer;
+    z-index: 1000;
   }

@@ -18,6 +18,10 @@
 </head>
 
 <body>
+    <div class="loading">
+        <img src="img\Spinner-1s-200px.gif" alt="">
+    
+    </div>
     <div class="mapContainer"></div>
     <div class="infoContainer">
         <div class="littleInfo">
@@ -30,13 +34,13 @@
                     <p class="distance"></p>
                     <br>
                     <p class="adress"></p>
-                    <br>
-                    <p class="gender"></p>
+                    <a class="go">GO</a>
+
                     <br>
                     <p class="open"></p>
                 </div>
                 <div class="right">
-                    <p class="grade">jsdhfjhsd</p>
+                    <p class="grade"></p>
                 </div>
             </div>
             <div class="moreInfoContainer">
@@ -47,6 +51,10 @@
         </div>
     </div>
     <div class="addComment">
+            <div class="closeComment">
+                <span></span>
+                <span></span>
+            </div>
 
         <h1>Add a comment :</h1>
         <form action="#" method="post">
@@ -63,10 +71,17 @@
         </form>
     </div>
     <div class="infoContainerComplete">
-        <div class="mapFocused"></div>
+            <div class="closeInfoContainer">
+                <span></span>
+                <span></span>
+            </div>
+        
         <p class="adress"></p>
+        <a class="go">GO</a>
         <p class="open"></p>
-        <p class='rate'></p>
+        <div class="rate">
+        </div>
+        
         <div class="rating">
             <input name="stars" id="e5" type="radio"><label class='js-5' for="e5">☆</label>
 
@@ -78,6 +93,7 @@
 
             <input name="stars" id="e1" type="radio"><label class='js-1' for="e1">☆</label>
         </div>
+        <button class="addCommentButton">Commenter</button>
         <h2>Comments</h2>
         <div class="comments">
 

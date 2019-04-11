@@ -9,6 +9,19 @@ const rating = document.querySelector('.rating')
 const rateDom = document.querySelector('.rate')
 const ratingLabel = rating.querySelectorAll('label')
 const infoContainerComplete = document.querySelector('.infoContainerComplete')
+const closeComment = document.querySelector('.closeComment')
+const closeInfoContainer = document.querySelector('.closeInfoContainer')
+
+
+
+
+
+const addComment = document.querySelector('.addComment')
+const addCommentButton = document.querySelector('.addCommentButton')
+
+
+
+
 
 
 const adress = document.querySelectorAll('.adress')
@@ -45,6 +58,18 @@ let coord
 close.addEventListener('click', () => {
   littleInfo.style.transform = 'translateY(100%)'
 })
+closeComment.addEventListener('click', () => {
+  addComment.style.transform = 'translateY(200%)'
+})
+addCommentButton.addEventListener('click', () => {
+  addComment.style.transform = 'translateY(0%)'
+  infoContainerComplete.style.transform = 'translateX(100%)'
+  
+})
+closeInfoContainer.addEventListener('click', () => {
+  infoContainerComplete.style.transform = 'translateX(100%)'
+  
+})
 
 function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement function
   var R = 6378.137; // Radius of earth in KM
@@ -73,6 +98,7 @@ function getCoords() {
   })
 
 }
+
 
 
 
@@ -112,6 +138,11 @@ getCoords().then(coords => {
 
 
   moreInfo.addEventListener('click', () => {
+    
+   
+    
+
+   
     // hiddenInput.style.display="none"
     hiddenInput.value = `${currentToilet.id}`
     infoContainerComplete.style.transform = 'translateX(0)'
@@ -160,6 +191,29 @@ getCoords().then(coords => {
 
           }
         }
+        for (let b = 0; b < ratingLabel.length; b++) {
+          let rate = ratingLabel.length - b
+          fetch('rate-sum.php?rate=' + rate + '&id=' + currentToilet.id)
+            .then(result => result.json())
+            .then(data =>{
+              console.log(data.sum);
+               let rateP = rateDom.querySelector('p')
+               console.log(rateP);
+              if (rateP === null) {
+                let rateDomp = document.createElement('p')
+                rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size.toFixed(2)}) `
+                rateDom.appendChild(rateDomp)
+                console.log(rate.children);
+              }
+              else{
+                rateDom.removeChild(rateP)
+                console.log('deleted');
+                let rateDomp = document.createElement('p')
+                rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size}) `
+                rateDom.appendChild(rateDomp)
+              }    
+            })
+        }
 
 
       })
@@ -169,19 +223,31 @@ getCoords().then(coords => {
   for (let b = 0; b < ratingLabel.length; b++) {
     ratingLabel[b].addEventListener('click', () => {
       let rate = ratingLabel.length - b
-      console.log(rate);
-
       fetch('rate.php?rate=' + rate + '&id=' + currentToilet.id)
         .then(result => result.json())
         .then(data =>{
-          console.log(data)
-          rateDom.innerHTML=`${ data.toFixed(2)}`
-        }
           
-
-        )
-
+          
+          //  let rateP = rateDom.querySelector('p')
+          //  console.log(rateP);
+          // if (rateP === null) {
+            
+          //   let rateDomp = document.createElement('p')
+          //   rateDomp.innerHTML=`${ data.toFixed(2)}★`
+          //   rateDom.appendChild(rateDomp)
+          //   console.log(rate.children);
+          // }
+          // else{
+          //   rateDom.removeChild(rateP)
+          //   console.log('deleted');
+          //   let rateDomp = document.createElement('p')
+          //   rateDomp.innerHTML=`${ data.toFixed(2)}★`
+          //   rateDom.appendChild(rateDomp)
+          // }    
+        })
     })
+    
+    
 
   }
 
@@ -192,7 +258,8 @@ getCoords().then(coords => {
   oReq.onload = function() {
     //This is where you handle what to do with the response.
     //The actual data is found on this.responseText
-
+    let loading = document.querySelector('.loading')
+    loading.style.display="none"
 
     let toilets = JSON.parse(this.responseText)
 
@@ -239,6 +306,17 @@ getCoords().then(coords => {
         icon: iconsvg
       })
       map.addObject(marker);
+      let svgV2 = '<svg class="marker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 243.97 395.23"><defs><style>.cls-1z{fill:#FFC900;stroke:#fff;stroke-miterlimit:10;width="2px"}</style></defs><title>point map</title><path class="cls-1z" d="M380.68,221.69a164.34,164.34,0,0,1-3.78,35.22A84,84,0,0,1,368.68,278L262.23,464.74c-7.34,12.54-9.21,12.62-16.66-.34l-97.1-187.87a73.54,73.54,0,0,1-6.33-16.77,164,164,0,0,1-4.43-38.07c0-78.31,54.39-141.78,121.49-141.78S380.68,143.38,380.68,221.69Z" transform=" translate(-137.21 -79.41)"/></svg>'
+      let iconsvgv2 = new H.map.DomIcon(svgV2)
+   
+      
+      
+      
+      
+      
+      
+      
+     
       marker.addEventListener('pointerenter', () => {
         // console.log(i);
         mapContainer.style.cursor = "pointer"
@@ -246,12 +324,38 @@ getCoords().then(coords => {
       marker.addEventListener('pointerleave', () => {
         mapContainer.style.cursor = "default"
       });
-
-
+      
+        
+      let go = document.querySelectorAll('.go')
       marker.addEventListener('tap', (event) => {
+
+        for (let e = 0; e < go.length; e++) {
+          console.log(go[e]);
+          go[e].href=`https://map.google.com/?q=${toilet.coordinates[0]},${toilet.coordinates[1]}`
+          
+        }
+        
+        
 
         currentToilet = toilet
         littleInfo.style.transform = 'translateY(-10%)'
+        for (let b = 0; b < ratingLabel.length; b++) {
+          let rate = ratingLabel.length - b
+          fetch('rate-sum.php?rate=' + rate + '&id=' + currentToilet.id)
+            .then(result => result.json())
+            .then(data =>{
+               let grade = document.querySelector('.grade')
+               grade.innerHTML=''
+               
+              if ( grade.innerHTML === '') {
+                grade.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size})`
+              }
+              else{
+                grade.innerHTML=''
+                grade.innerHTML=`${ data.sum.toFixed(2)}★ ( sur ${ data.size} avis) `
+              }    
+            })
+        }
         for (let m = 0; m < adress.length; m++) {
           adress[m].innerHTML = `${toilet.address[0]}  ${toilet.address[1].toLowerCase()}<br> <br>PARIS ${toilet.address[2]}`
         }
@@ -261,6 +365,39 @@ getCoords().then(coords => {
 
         let distanceMeter = measure(coords.lat, coords.long, toilet.coordinates[0], toilet.coordinates[1])
         distance.innerHTML = `Situé à ${Math.round(distanceMeter*100)/100}m`
+        moreInfo.addEventListener('click',()=>{
+          let mapFocusedDom = document.querySelector('.mapFocused')
+          if (mapFocusedDom=== null) {
+            mapFocusedDom= document.createElement('div')
+            mapFocusedDom.classList.add('mapFocused')
+            infoContainerComplete.prepend(mapFocusedDom)
+            mapFocusedDom.style.width='70%'
+            mapFocusedDom.style.height='30%'
+          }
+          else{
+            infoContainerComplete.removeChild(mapFocusedDom)
+            mapFocusedDom= document.createElement('div')
+            mapFocusedDom.classList.add('mapFocused')
+            infoContainerComplete.prepend(mapFocusedDom)
+            mapFocusedDom.style.width='70%'
+            mapFocusedDom.style.height='30%'
+          }
+          let mapFocused_mapv1 = new H.Map(mapFocusedDom, defaultLayers.normal.map, {
+            zoom: 15,
+            center: {
+              lat: toilet.coordinates[0],
+              lng: toilet.coordinates[1]
+            }
+      });
+
+      let littleMarker = new H.map.DomMarker({
+        lat: toilet.coordinates[0],
+        lng: toilet.coordinates[1]
+      }, {
+        icon: iconsvgv2
+      })
+      mapFocused_mapv1.addObject(littleMarker);
+        })
 
 
 
