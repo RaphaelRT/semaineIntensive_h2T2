@@ -173,9 +173,11 @@ getCoords().then(coords => {
 
       fetch('rate.php?Dom=' + Dom + '&id=' + currentToilet.id)
         .then(result => result.json())
-        .then(data =>
-
+        .then(data =>{
+          console.log(data)
           rateDom.innerHTML = `${data.toFixed(2)}`
+        }
+          
 
         )
 
