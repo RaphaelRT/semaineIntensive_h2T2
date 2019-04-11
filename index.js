@@ -168,14 +168,14 @@ getCoords().then(coords => {
   })
   for (let b = 0; b < ratingLabel.length; b++) {
     ratingLabel[b].addEventListener('click', () => {
-      let Dom = ratingLabel.length - b
-      console.log(Dom);
+      let rate = ratingLabel.length - b
+      console.log(rate);
 
-      fetch('rate.php?Dom=' + Dom + '&id=' + currentToilet.id)
+      fetch('rate.php?rate=' + rate + '&id=' + currentToilet.id)
         .then(result => result.json())
         .then(data =>{
           console.log(data)
-          rateDom.innerHTML = `${data.toFixed(2)}`
+          rateDom.innerHTML=`${ data.toFixed(2)}`
         }
           
 
