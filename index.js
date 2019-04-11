@@ -11,21 +11,12 @@ const ratingLabel = rating.querySelectorAll('label')
 const infoContainerComplete = document.querySelector('.infoContainerComplete')
 const closeComment = document.querySelector('.closeComment')
 const closeInfoContainer = document.querySelector('.closeInfoContainer')
-
-
-
-
-
 const addComment = document.querySelector('.addComment')
 const addCommentButton = document.querySelector('.addCommentButton')
-
-
-
-
-
-
 const adress = document.querySelectorAll('.adress')
 const open = document.querySelectorAll('.open')
+
+
 let windowWidth = window.innerWidth ||
   document.documentElement.clientWidth ||
   document.body.clientWidth;
@@ -38,10 +29,10 @@ mapContainer.style.width = `${windowWidth}px`
 mapContainer.style.height = `${windowHeight}px`
 mapContainer.style.position = 'absolute'
 
-let y
 
 
 
+//Initialize HereWeGo
 const platform = new H.service.Platform({
   'app_id': 'dTY5MsMINPKmHzqsBEbz',
   'app_code': 'rDo25FUD-BJTqj8-6pmHIw'
@@ -50,28 +41,42 @@ const platform = new H.service.Platform({
 // Obtain the default map types from the platform object:
 let defaultLayers = platform.createDefaultLayers();
 
+	
 // Instantiate (and display) a map object:
 let map
 let ui
 let behavior
 let coord
+
+//Close element Event
 close.addEventListener('click', () => {
   littleInfo.style.transform = 'translateY(100%)'
 })
+
 closeComment.addEventListener('click', () => {
   addComment.style.transform = 'translateY(220%)'
 })
-addCommentButton.addEventListener('click', () => {
-  addComment.style.transform = 'translateY(0%)'
-  infoContainerComplete.style.transform = 'translateX(100%)'
-  
-})
+
 closeInfoContainer.addEventListener('click', () => {
   infoContainerComplete.style.transform = 'translateX(100%)'
   
 })
 
-function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement function
+addCommentButton.addEventListener('click', () => {
+  if (/Android|webOS|iPhone|iPad|BlackBerry|Windows Phone|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)){
+    addComment.style.transform = 'translateX(2%)'
+  }
+  else{
+    addComment.style.transform = 'translateX(100%)'
+  } 
+  infoContainerComplete.style.transform = 'translateX(100%)'
+  
+})
+
+
+//function to calculate a distance in meter with coords
+
+function measure(lat1, lon1, lat2, lon2) { 
   var R = 6378.137; // Radius of earth in KM
   var dLat = lat2 * Math.PI / 180 - lat1 * Math.PI / 180;
   var dLon = lon2 * Math.PI / 180 - lon1 * Math.PI / 180;
@@ -83,12 +88,10 @@ function measure(lat1, lon1, lat2, lon2) { // generally used geo measurement fun
   return d * 1000; // meters
 }
 
+//Get coords your own coords
 function getCoords() {
   return new Promise((resolve, reject) => {
-    console.log('okkkkk')
     navigator.geolocation.watchPosition((position) => {
-
-
       const res = {
         lat: position.coords.latitude,
         long: position.coords.longitude
@@ -96,14 +99,9 @@ function getCoords() {
       resolve(res)
     });
   })
-
 }
-
-
-
-
-
 getCoords().then(coords => {
+  //Create map
   map = new H.Map(mapContainer, defaultLayers.normal.map, {
     zoom: 15,
     center: {
@@ -112,7 +110,7 @@ getCoords().then(coords => {
     }
   });
 
-  // Define a variable holding SVG mark-up that defines an animated icon image:
+  // Create Marker
   let animatedSvg = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" ' +
     'y="0px" style="width="2px"' +
     'height="2px" viewBox="0 0 136 150">' +
@@ -128,33 +126,26 @@ getCoords().then(coords => {
   ui = H.ui.UI.createDefault(map, defaultLayers);
   map.addObject(marker);
 
-
-
-
+  //Allow Event on map
   behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+
   map.addEventListener('tap', () => {
     infoContainerComplete.style.transform = 'translateX(100%)'
   })
 
 
   moreInfo.addEventListener('click', () => {
-    
-   
-    
-
-   
-    // hiddenInput.style.display="none"
     hiddenInput.value = `${currentToilet.id}`
     infoContainerComplete.style.transform = 'translateX(0)'
     littleInfo.style.transform = 'translateY(100%)'
 
-    // alert('toilet-infos.php?id=' + currentToilet.id)
+    //Get comments by id
     fetch('comments.php?id=' + currentToilet.id)
       .then(result => result.json())
       .then(data => {
         if (comments.children[0] === undefined) {
           for (let x = 0; x < data.length; x++) {
-
             let comment = document.createElement('div')
             comment.classList.add('comment')
             let name = document.createElement('h3')
@@ -167,7 +158,6 @@ getCoords().then(coords => {
             comment.appendChild(name)
             comment.appendChild(date)
             comment.appendChild(pComment)
-
           }
         } else {
           let commentDom = document.querySelectorAll('.comment')
@@ -196,74 +186,46 @@ getCoords().then(coords => {
           fetch('rate-sum.php?rate=' + rate + '&id=' + currentToilet.id)
             .then(result => result.json())
             .then(data =>{
-              console.log(data.sum);
-               let rateP = rateDom.querySelector('p')
-               console.log(rateP);
-              if (rateP === null) {
-                let rateDomp = document.createElement('p')
-                rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size.toFixed(2)}) `
-                rateDom.appendChild(rateDomp)
-                console.log(rate.children);
-              }
-              else{
-                rateDom.removeChild(rateP)
-                console.log('deleted');
-                let rateDomp = document.createElement('p')
-                rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size}) `
-                rateDom.appendChild(rateDomp)
-              }    
+                let rateP = rateDom.querySelector('p')
+                if (rateP === null) {
+                  let rateDomp = document.createElement('p')
+                  rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size.toFixed(2)}) `
+                  rateDom.appendChild(rateDomp)
+                  console.log(rate.children);
+                }
+                else{
+                  rateDom.removeChild(rateP)
+                  console.log('deleted');
+                  let rateDomp = document.createElement('p')
+                  rateDomp.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size}) `
+                  rateDom.appendChild(rateDomp)
+                }    
             })
         }
-
-
       })
-
-
   })
+
+  //rating
   for (let b = 0; b < ratingLabel.length; b++) {
     ratingLabel[b].addEventListener('click', () => {
       let rate = ratingLabel.length - b
       fetch('rate.php?rate=' + rate + '&id=' + currentToilet.id)
-        .then(result => result.json())
-        .then(data =>{
-          
-          
-          //  let rateP = rateDom.querySelector('p')
-          //  console.log(rateP);
-          // if (rateP === null) {
-            
-          //   let rateDomp = document.createElement('p')
-          //   rateDomp.innerHTML=`${ data.toFixed(2)}★`
-          //   rateDom.appendChild(rateDomp)
-          //   console.log(rate.children);
-          // }
-          // else{
-          //   rateDom.removeChild(rateP)
-          //   console.log('deleted');
-          //   let rateDomp = document.createElement('p')
-          //   rateDomp.innerHTML=`${ data.toFixed(2)}★`
-          //   rateDom.appendChild(rateDomp)
-          // }    
-        })
     })
-    
-    
-
   }
 
 
   let currentToilet = null
-  const oReq = new XMLHttpRequest(); //New request object
+  const request = new XMLHttpRequest(); //New request object
 
-  oReq.onload = function() {
-    //This is where you handle what to do with the response.
-    //The actual data is found on this.responseText
+  request.onload = function() {
     let loading = document.querySelector('.loading')
-    loading.style.display="none"
-
     let toilets = JSON.parse(this.responseText)
 
-    // let group = new H.map.Group();
+    loading.style.display="none"
+
+    
+
+    // Get and compare Hours 
     for (let i = 0; i < Math.floor(toilets.length); i++) {
       let svg
       let date = new Date();
@@ -297,7 +259,7 @@ getCoords().then(coords => {
         svg = '<svg class="marker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 243.97 395.23"><defs><style>.cls-1h{fill:grey;stroke:#fff;stroke-miterlimit:10;width="2px"}</style></defs><title>point map</title><path class="cls-1h" d="M380.68,221.69a164.34,164.34,0,0,1-3.78,35.22A84,84,0,0,1,368.68,278L262.23,464.74c-7.34,12.54-9.21,12.62-16.66-.34l-97.1-187.87a73.54,73.54,0,0,1-6.33-16.77,164,164,0,0,1-4.43-38.07c0-78.31,54.39-141.78,121.49-141.78S380.68,143.38,380.68,221.69Z" transform="  translate(-137.21 -79.41)"/></svg>'
       }
 
-
+      //create markers on all toilets 
       let iconsvg = new H.map.DomIcon(svg)
       marker = new H.map.DomMarker({
         lat: toilet.coordinates[0],
@@ -308,44 +270,33 @@ getCoords().then(coords => {
       map.addObject(marker);
       let svgV2 = '<svg class="marker" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 243.97 395.23"><defs><style>.cls-1z{fill:#FFC900;stroke:#fff;stroke-miterlimit:10;width="2px"}</style></defs><title>point map</title><path class="cls-1z" d="M380.68,221.69a164.34,164.34,0,0,1-3.78,35.22A84,84,0,0,1,368.68,278L262.23,464.74c-7.34,12.54-9.21,12.62-16.66-.34l-97.1-187.87a73.54,73.54,0,0,1-6.33-16.77,164,164,0,0,1-4.43-38.07c0-78.31,54.39-141.78,121.49-141.78S380.68,143.38,380.68,221.69Z" transform=" translate(-137.21 -79.41)"/></svg>'
       let iconsvgv2 = new H.map.DomIcon(svgV2)
-   
-      
-      
-      
-      
-      
-      
-      
-     
+
       marker.addEventListener('pointerenter', () => {
-        // console.log(i);
         mapContainer.style.cursor = "pointer"
       });
       marker.addEventListener('pointerleave', () => {
         mapContainer.style.cursor = "default"
       });
       
-        
+      //redirect to Google map in order to get the itinerary  
       let go = document.querySelectorAll('.go')
       marker.addEventListener('tap', (event) => {
-
         for (let e = 0; e < go.length; e++) {
-          console.log(go[e]);
           go[e].href=`https://map.google.com/?q=${toilet.coordinates[0]},${toilet.coordinates[1]}`
-          
         }
         
         
-
         currentToilet = toilet
         littleInfo.style.transform = 'translateY(-10%)'
+
+        //send rating
         for (let b = 0; b < ratingLabel.length; b++) {
           let rate = ratingLabel.length - b
           fetch('rate-sum.php?rate=' + rate + '&id=' + currentToilet.id)
             .then(result => result.json())
             .then(data =>{
-               let grade = document.querySelector('.grade')
-               grade.innerHTML=''
+              let grade = document.querySelector('.grade')
+              grade.innerHTML=''
                
               if ( grade.innerHTML === '') {
                 grade.innerHTML=`${ data.sum.toFixed(2)}★ (${ data.size})`
@@ -356,6 +307,7 @@ getCoords().then(coords => {
               }    
             })
         }
+
         for (let m = 0; m < adress.length; m++) {
           adress[m].innerHTML = `${toilet.address[0]}  ${toilet.address[1].toLowerCase()}<br> <br>PARIS ${toilet.address[2]}`
         }
@@ -388,56 +340,22 @@ getCoords().then(coords => {
               lat: toilet.coordinates[0],
               lng: toilet.coordinates[1]
             }
-      });
+          });
 
-      let littleMarker = new H.map.DomMarker({
-        lat: toilet.coordinates[0],
-        lng: toilet.coordinates[1]
-      }, {
-        icon: iconsvgv2
-      })
-      mapFocused_mapv1.addObject(littleMarker);
+          let littleMarker = new H.map.DomMarker({
+            lat: toilet.coordinates[0],
+            lng: toilet.coordinates[1]
+          }, {
+            icon: iconsvgv2
+          })
+          mapFocused_mapv1.addObject(littleMarker);
         })
-
-
-
-
       });
-
-
-      // marker.setData(`<div style="text-align:center;font-weight:bold;">${toilet[1][0]}  ${toilet[2][0].toLowerCase()}<br> <br>PARIS ${toilet[3][0]}</div>`);
     }
 
-
-
-    // map.addObject(group);
-
-
-    // add 'tap' event listener, that opens info bubble, to the group
-    //   group.addEventListener('tap', function (evt) {
-
-    //     // event target is the marker itself, group is a parent event target
-    //     // for all objects that it contains
-    //     var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
-    //       // read custom data
-    //       content: evt.target.getData()
-    //     });
-    //     // show info bubble
-
-    //     ui.addBubble(bubble);
-
-
-    // });   
-
-
-    //Will alert: 42
   };
-  oReq.open("get", "data.php", true);
-  //                               ^ Don't block the rest of the execution.
-  //                                 Don't wait until the request finishes to 
-  //                                 continue.
-  oReq.send();
-
+  request.open("get", "data.php", true);
+  request.send();
 }).catch(err => {
   console.error(err)
 })

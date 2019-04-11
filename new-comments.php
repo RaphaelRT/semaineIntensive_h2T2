@@ -3,17 +3,9 @@
 $id = empty($_GET['id']) ? '' : $_GET['id'];
 
 if (!empty($_POST)) {
-
-		// enter the data from your POST here
-
 		$data = [
-
-		// Setup of the data of the form
-
-		'user' => htmlspecialchars($_POST['input1']) , 'message' => htmlspecialchars($_POST['input2']) , 'id_marker' => htmlspecialchars($_POST['input3']) ];
-
-		// Setup of conditions in case of errors
-
+			'user' => htmlspecialchars($_POST['input1']) , 'message' => htmlspecialchars($_POST['input2']) , 'id_marker' => htmlspecialchars($_POST['input3']) 
+		];
 		if (empty('user')) {
 				$alerts['error'][] = 'Missing name';
 		}

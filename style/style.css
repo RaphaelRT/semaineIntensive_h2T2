@@ -1,3 +1,16 @@
+@media (min-width:900px){
+  .moreInfo{
+    margin-top: -5%;
+  }
+  .left{
+    margin-right: 20%;
+  }
+  .loading img{
+    width:10% !important;
+    height: 20% !important;
+  }
+  
+}
 html, body {
   font-family: 'poppins', sans-serif;
   overflow: hidden;
@@ -6,7 +19,7 @@ html, body {
 .loading{
   width: 100%;
   height: 100%;
-  background: #ffffff;
+  background: #383b50;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -16,7 +29,7 @@ html, body {
 }
 
 .loading img{
-  width:5%;
+  width:20%;
   height: 10%;
 }
 
@@ -88,6 +101,7 @@ html, body {
   background: #FFC900;
   border-radius: 25px;
   color: white;
+  cursor: pointer;
 }
 
 .close {
@@ -132,7 +146,6 @@ span:nth-child(2) {
   background: #383b50;
   position: absolute;
   top: 0;
-  right: 2%;
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -140,7 +153,7 @@ span:nth-child(2) {
   justify-items: center;
   transform: translateX(100%);
   transition: transform 1s ease;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .infoContainerComplete .header {
@@ -152,7 +165,7 @@ span:nth-child(2) {
 }
 
 .infoContainerComplete .header h3 {
-text-align: center;
+  text-align: center;
 }
 
 .infoContainerComplete .closeComplete span {
@@ -252,13 +265,13 @@ text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: translateX(200%);
+  transform: translateX(100vw);
   transition: transform 1s ease;
 }
 
 .addComment__title{
-margin-top: 17%;
-font-size: 21px;
+  margin-top: 17%;
+  font-size: 21px;
 }
 
 .addComment__form{
@@ -293,6 +306,7 @@ font-size: 21px;
   display: inline-block;
   margin-bottom: 20px;
   outline: none;
+  cursor: pointer;
 
 }
 .go{

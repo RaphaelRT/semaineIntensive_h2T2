@@ -12,7 +12,6 @@
     $sum= [];
 
     for ($i=0; $i < sizeof($returnedData) ; $i++) { 
-        
         $sum[] = $returnedData[$i]->rate;
     }   
         $sumResult =[];
