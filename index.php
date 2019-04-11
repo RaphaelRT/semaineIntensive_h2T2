@@ -10,6 +10,7 @@
     <meta name="viewport" content="initial-scale=1.0, 
       width=device-width" />
     <link rel="stylesheet" href="style/reset.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans|Poppins" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://js.api.here.com/v3/3.0/mapsjs-ui.css" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
     <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js" type="text/javascript" charset="utf-8"></script>
@@ -32,15 +33,12 @@
             <div class="content">
                 <div class="left">
                     <p class="distance"></p>
-                    <br>
                     <p class="adress"></p>
-                    <a class="go">GO</a>
-
-                    <br>
                     <p class="open"></p>
                 </div>
                 <div class="right">
                     <p class="grade"></p>
+                    <a class="go">GO</a>
                 </div>
             </div>
             <div class="moreInfoContainer">
@@ -56,29 +54,34 @@
                 <span></span>
             </div>
 
-        <h1>Add a comment :</h1>
-        <form action="#" method="post">
-            <div>
-                <input type="text" required name="input1" placeholder="Name" />
-            </div>
-            <div>
-                <textarea required name="input2" cols="40" rows="5" placeholder="Comment"></textarea>
-            </div>
-            <div class="hidden">
-                <input class="hiddenInput" type="text" required name="input3" />
-            </div>
-            <input type="submit">
-        </form>
+        <h1 class="addComment__title">Add a comment :</h1>
+        <div class="addComment__form">
+            <form action="#" method="post">
+                <div>
+                    <input type="text" required name="input1" placeholder="Name" class="addComment__txt" />
+                </div>
+                <div>
+                    <textarea required name="input2" cols="40" rows="5" placeholder="Comment" class="addComment__txt"></textarea>
+                </div>
+                <div class="hidden">
+                    <input class="hiddenInput" type="text" required name="input3" />
+                </div>
+                <input type="submit" class="addComment__submit">
+            </form>
+        </div>
     </div>
     <div class="infoContainerComplete">
-            <div class="closeInfoContainer">
-                <span></span>
-                <span></span>
-            </div>
+        <div class="header">
+            <h3>PoopAdvisor</h3>
+                <div class="close closeInfoContainer">
+                    <span></span>
+                    <span></span>
+                </div>
+        </div>
         
         <p class="adress"></p>
-        <a class="go">GO</a>
         <p class="open"></p>
+        <a class="go">GO</a>
         <div class="rate">
         </div>
         

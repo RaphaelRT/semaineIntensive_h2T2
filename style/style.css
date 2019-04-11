@@ -1,254 +1,332 @@
-html {
-    overflow: hidden;
-  }
-  .loading{
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    z-index: 100;
-    overflow: hidden;
-    align-items: center;
-  }
-  .loading img{
-    width:5%;
-    height: 10%;
-  }
-  
-  .marker {
-    width: 25px;
-  
-  }
-  .marker path:hover{
-    fill: #FFC900;
-  }
-  
-  .infoContainer {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    overflow: hidden;
-  }
-  
-  .littleInfo {
-    width: 90vw;
-    height: 40vh;
-    margin: auto;
-    position: absolute;
-    background: #383b50;
-    border-radius: 15px;
-    /* transform: translateY(-5vh); */
-    transform: translateY(100%);
-    transition: transform 1s ease;
-  
-  
-  }
-  
-  .content {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    height: 50%;
-    margin-top: 5%;
-  
-  }
-  
+html, body {
+  font-family: 'poppins', sans-serif;
+  overflow: hidden;
+}
+
+.loading{
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  z-index: 100;
+  overflow: hidden;
+  align-items: center;
+}
+
+.loading img{
+  width:5%;
+  height: 10%;
+}
+
+.marker {
+  width: 25px;
+}
+
+.marker path:hover{
+  fill: #FFC900;
+}
+
+.infoContainer {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.littleInfo {
+  width: 90vw;
+  height: 40vh;
+  left: 3%;
+  margin: auto;
+  position: absolute;
+  background: #383b50;
+  border-radius: 15px;
+  /* transform: translateY(-5vh); */
+  transform: translateY(100%);
+  transition: transform 1s ease;
+
+
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 65%;
+  margin-top: 5%;
+
+}
+
+.left, .right{
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+
+.right .go {
+  text-align: center;
+  align-content: flex-end;
+}
+
+.moreInfoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.moreInfo {
+  font-family: 'poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  height: 7vh;
+  background: #FFC900;
+  border-radius: 25px;
+  color: white;
+}
+
+.close {
+  position: absolute;
+  top: 5%;
+  right: 6%;
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.closeComplete {
+  width: 25%;
+  top: 2%;
+  left: 5%;
+}
+
+span {
+  display: block;
+  width: 22px;
+  height: 0.5vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  transition: 0.5s;
+}
+
+span:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+span:nth-child(2) {
+  transform: rotate(-45deg);
+}
+
+.infoContainerComplete {
+  height: 100vh;
+  width:100vw;
+  background: #383b50;
+  position: absolute;
+  top: 0;
+  right: 2%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  transform: translateX(100%);
+  transition: transform 1s ease;
+  overflow: hidden;
+}
+
+.infoContainerComplete .header {
+  position: absolute;
+  top: 2vh;
+  width: 100%;
+  height: 5%;
+  font-size: 2rem;
+}
+
+.infoContainerComplete .header h3 {
+text-align: center;
+}
+
+.infoContainerComplete .closeComplete span {
+  width: 32px;
+  top:67%;
+  left:15%;
+}
+.infoContainerComplete p {
+  margin-top: 3vh;
+  text-align: center;
+}
+.infoContainerComplete p:nth-child(2) {
+  margin-bottom: 2vh;
+}
+
+.mapFocused {
+  margin-top: 10vh;
+  position: relative;
+}
+
+.comments {
+  width: 70%;
+}
+
+.comment {
+  margin-top: 10%;
+  width: 100%;
+  border: #ffffff 1px solid;
+  padding: 5%;
+  border-radius: 5%;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+/*  
+          * Rating styles
+          */
+.rating {
+  width: 226px;
+  margin: 0 auto 1em;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+  transform: rotateY(180deg);
+  margin: 0 auto;
+}
+
+.rating input {
+  float: right;
+  opacity: 0;
+  position: absolute;
+}
+
+.rating a,
+.rating label {
+  float: right;
+  color: #aaa;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-size: 37px;
+  text-decoration: none;
+  -webkit-transition: color .4s;
+  -moz-transition: color .4s;
+  -o-transition: color .4s;
+  transition: color .4s;
+}
+
+.rating label:hover~label,
+.rating input:focus~label,
+.rating label:hover,
+.rating a:hover,
+.rating a:hover~a,
+.rating a:focus,
+.rating a:focus~a {
+  color: orange;
+  cursor: pointer;
+}
+
+.rating2 {
+  direction: rtl;
+}
+
+.rating2 a {
+  float: none
+}
+
+.addComment{
+  position: absolute;
+  background: #383b50;
+  height: 30%;
+  border-radius: 15px;
+  top: 35%;
+  left: 4%;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(200%);
+  transition: transform 1s ease;
+}
+
+.addComment__title{
+margin-top: 17%;
+font-size: 21px;
+}
+
+.addComment__form{
+  margin-left: 24%;
+  margin-top: 10%;
+}
+
+.addComment__submit{
+  margin-left: 30%;
+}
+
+.closeComment{
+  position: absolute;
+  top: 13%;
+  left: 90%; 
+  transform: translate(-50%, -50%);
+  height: 8%;
+  width: 8%;
+  cursor: pointer;
+  z-index: 1000;
+}
+.addCommentButton{
+  background: #FFC900;
+  text-transform: uppercase;
+  background: #FFC900 !important;
+  padding-top: 10px;
+  padding-bottom: 24px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border: 2px solid #FFFFFF;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 20px;
+  outline: none;
+
+}
+.go{
+  text-transform: uppercase;
+  background: #FFC900 !important;
+  padding: 10px;
+  border: 2px solid #FFFFFF;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+@media screen and (max-width:450px) {
   .left {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
+    width: 47%;
+    margin-top: 3%;
+    padding: 1.5vh 2vw;
+  } 
+  .left .open {
+    width: 65%;
   }
-  
   .right {
-    display: flex;
-    flex-direction: column;
-    color: #ffffff;
+    width: 25%;
+    margin-top: 3%;
+    padding: 7.5vh 2vw;
+
   }
-  
-  .moreInfoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .left span {
-    margin-right: 20vw;
-  }
-  
-  .moreInfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40vw;
-    height: 7vh;
-    background: #FFC900;
-    border-radius: 50px;
-  
-  }
-  
-  .close {
-    position: absolute;
-    top: 20%;
-    left: 92%;
-    transform: translate(-50%, -50%);
-    height: 8%;
-    width: 8%;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  
   span {
-    display: block;
-    width: 40%;
-    height: 0.5vh;
-    position: absolute;
-    top: 50%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    background: #ffffff;
-    transition: 0.5s;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .20);
+    top:33%;
+    right:18%;
   }
-  
-  span:nth-child(1) {
-    transform: rotate(45deg);
-  }
-  
-  span:nth-child(2) {
-    transform: rotate(-45deg);
-  }
-  
-  .infoContainerComplete {
-    height: 100vh;
-    width: 40vw;
-    background: #383b50;
-    position: absolute;
-    top: 0;
-    left: 60%;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-items: center;
-    overflow: auto;
-    transform: translateX(100%);
-    transition: transform 1s ease;
-  
-  }
-  
-  .comments {
-    width: 70%;
-  }
-  
-  .comment {
+  .left p:nth-child(n + 2){
     margin-top: 10%;
-    width: 100%;
-    border: #ffffff 1px solid;
-    padding: 5%;
-    border-radius: 5%;
   }
-  
-  .hiddenInput {
-    display: none;
-  }
-  
-  /*  
-           * Rating styles
-           */
-  .rating {
-    width: 226px;
-    margin: 0 auto 1em;
-    font-size: 45px;
-    display: flex;
-    justify-content: center;
-    transform: rotateY(180deg);
-    margin: 0 auto;
-  }
-  
-  .rating input {
-    float: right;
-    opacity: 0;
-    position: absolute;
-  }
-  
-  .rating a,
-  .rating label {
-    float: right;
-    color: #aaa;
-    text-decoration: none;
-    -webkit-transition: color .4s;
-    -moz-transition: color .4s;
-    -o-transition: color .4s;
-    transition: color .4s;
-  }
-  
-  .rating label:hover~label,
-  .rating input:focus~label,
-  .rating label:hover,
-  .rating a:hover,
-  .rating a:hover~a,
-  .rating a:focus,
-  .rating a:focus~a {
-    color: orange;
-    cursor: pointer;
-  }
-  
-  .rating2 {
-    direction: rtl;
-  }
-  
-  .rating2 a {
-    float: none
-  }
-  .addComment{
-    position: absolute;
-    background: #383b50;
-    width: 50%;
-    height: 50%;
-    top: 25%;
-    left:25%;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transform: translateX(200%);
-    transition: transform 1s ease;
 
 
-
-  }
-  .closeComment{
-    position: absolute;
-    top: 20%;
-    left: 92%;
-    transform: translate(-50%, -50%);
-    height: 8%;
-    width: 8%;
-    cursor: pointer;
-    z-index: 1000;
-  }
-  .addCommentButton{
-    background: #FFC900;
-    color: #000000;
-  }
-  .go{
-    width: 50%;
-    color: #000000;
-    background: #FFC900;
-    padding: 5%;
-  }
-  .closeInfoContainer{
-    position: absolute;
-    top: 20%;
-    left: 92%;
-    transform: translate(-50%, -50%);
-    height: 8%;
-    width: 8%;
-    cursor: pointer;
-    z-index: 1000;
-  }
+} 

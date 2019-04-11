@@ -59,7 +59,7 @@ close.addEventListener('click', () => {
   littleInfo.style.transform = 'translateY(100%)'
 })
 closeComment.addEventListener('click', () => {
-  addComment.style.transform = 'translateY(200%)'
+  addComment.style.transform = 'translateY(220%)'
 })
 addCommentButton.addEventListener('click', () => {
   addComment.style.transform = 'translateY(0%)'
